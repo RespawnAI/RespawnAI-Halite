@@ -44,6 +44,27 @@ class Map:
         """
         return list(self._players.values())
 
+    def get_enemy_ships(self):
+        """
+        Added method to retrieve list of enemy ships
+        """
+        enemy_ships = []
+        for player in self.all_players():
+            if player == self.get_me():
+                continue
+            enemy_ships.extend(player.enemy_ships())
+        return enemy_ships
+    
+    def get_enemy_planets(self):
+        """
+        Added method to retrieve list of enemy planets
+        """
+        enemy_planets = []
+        for planet in self.all_planets():
+            if planet.is_owned() and planet.owner != self.get_me():
+                enemy_planets.append(planet)
+        return enemy_planets
+
     def get_planet(self, planet_id):
         """
         :param int planet_id:
